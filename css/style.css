@@ -9,6 +9,8 @@ body
 { font: normal 90% Arial, Helvetica, sans-serif;
   color: #000;
   background: transparent url(../images/background.jpg) repeat;  
+  height: 100%;
+  width: 100%;
 }
 
 p

@@ -10,6 +10,7 @@
   <link rel="stylesheet" type="text/css" href="css/style.css" />
   <script type="text/javascript" src="js/jquery.min.js"></script>
   <script type="text/javascript" src="js/image_slide.js"></script>
+  <script src="https://google-code-prettify.googlecode.com/svn/loader/run_prettify.js"></script>
 </head>
 
 <body>
@@ -44,9 +45,75 @@
         <div class="content_item" align="center">
           <h2>JBoss-Automated-Metrics Features</h2>
 			<p>JBoss-Automated-Metrics have three main features :</p>
-                        <ol type="1"><li>Cache-Storage of Metrics.</li><li>Database-Storage of Metrics.</li><li>Monitoring of Metrics using RHQ.</li></ol>
+                        <ol type="1"><li>Cache-Storage of Metrics.</li><li>Database-Storage of Metrics.</li><li>Monitoring of Metrics using RHQ.</li></ol></div><!--close content_item-->
 			<p>&nbsp;</p>
-	    </div><!--close content_item-->
+                        <div align="justify">JBoss-Automated-Metrics facilitate for storage of metrics in cache, storage in some database and monitoring using RHQ monitoring tool. The configuration is done in the deployment by enabling or disabling each of the above features. Here is an example, which demonstrates how you can configure JBoss-Automated-Metrics in order to enable their features : </div><br/>
+	<pre class="prettyprint">
+    private String groupName = "myGroup";
+
+    private void initializeMetricProperties() {
+        HashMap<String,String> rhqScheduleIds = new HashMap<String,String>();
+        rhqScheduleIds.put("count", "11401");  // 1st Metric-Field name - Equivalent Schedule Id (Retrieved from the RHQ resources 
+                                               // - http://RHQserverUrl:7080/rest/resource?ps=99999)
+        rhqScheduleIds.put("count2", "11402");  // 2nd Metric-Field name - Equivalent Schedule Id (Retrieved from the RHQ resources 
+                                                // - http://RHQserverUrl:7080/rest/resource?ps=99999)
+        MetricProperties metricProperties = new MetricProperties();
+        metricProperties.setRhqMonitoring("true");  // Enabling the RHQ Monitoring operation.
+        metricProperties.setCacheStore("true");   // Enabling the Cache Storage operation.
+        metricProperties.setRhqServerUrl("lz-panos-jon33.bc.jonqe.lab.eng.bos.redhat.com");
+        metricProperties.setRhqScheduleIds(rhqScheduleIds);
+        metricProperties.setDatabaseStore("true");  // Enabling the Database Storage operation.
+        try {
+            Connection  connection = DriverManager.getConnection("jdbc:mariadb://localhost:3306", "root", "panos");
+                                     // DB driver connection
+            Statement stmt = connection.createStatement();  // Statement is needed in order to be refered as an annotation parameter.
+            createDbTable(stmt);  // The database tables must exist.
+            HashMap<String,Statement> dbStmt = new HashMap<String,Statement>();
+            dbStmt.put("statement_1", stmt); // The statement will be refered as "statement_1" in the @DBStore annotation parameters.
+            metricProperties.setDatabaseStatement(dbStmt);
+            HashMap<String,String> query1 = new HashMap<String,String>();
+            query1.put("StoreDBMetric", "INSERT INTO MyMETRICS.metricValues(METRIC_NAME,METRIC_VALUE,METRIC_INSTANCE,RECORD_TIME)
+					 VALUES('{1}', [1], '{instance}', '{time}');");  // sql query semantics :  
+                                              // {1} = Name of metric 1, [1] = Value of metric 1, {instance} = the instance of 
+                                              // the class that contains the metric, {time} = the time of storage
+            metricProperties.setUpdateDbQueries(query1);
+        } catch(Exception e) {
+            e.printStackTrace();
+        }
+        MetricsPropertiesApi.storeProperties(groupName, metricProperties);  // Store the metric properties for a specific group. 
+    }</pre><br/>
+
+         <div align="justify">Now, by using the annotations <b>@Metric</b> and <b>@DBStore</b> on a Class or a Method will trigger the JBoss-Automated-Metric features that are enabled in the configuration for the specific group. <b>For examples of usage, please refer to the section <i>Projects</i></b>.<br/><br/>Especially, for the <b>configuration of Rhq monitoring</b> some additional steps are required : </div><br/>
+            <ol type="1">
+            <li>Firstly, download and configure the RHQ Server</li>
+	    <li>Change the rhq-plugin.xml located in MetricsRhqPlugin folder with the metrics that you want to monitor</li>
+	    <li>Build the plugin and load it on RHQ</li>
+	    <li>At this point, you should be able to see your MetricsServer under the Resources of RHQ (http://RHQserverUrl:7080/rest/resource?ps=99999)</li>
+	    <li>Check the schedule ids of the metrics you want to monitor and configure jboss-automated-metrics using JBossAutomatedMeticsProperties api (Please, check initializeMetricProperties()  of the example above).</li>
+	    <li>Enable the RHQ Monitoring Operation using JBossAutomatedMeticsProperties api  (Please, check the method initializeMetricProperties()  of the example above).</li>
+	    <li>At this point, you should be able to use the operations of the JBoss-Automated-Metrics that you have activated.</li>
+            </ol>
+	    <br/><br/>
+            <div align="justify">The <b>configuration</b> of JBoss-Automated-Metrics properties is done using the artifact <i>org.jboss.metrics.JBossAutomatedMetricsProperties</i>. The user can modify the following properties of each feature : </div><br/>
+            <span><b>Cache-Storage of Metrics</b></span>
+            <ul>
+                <li>Field <i>cacheStore</i>, using the method <i>setCacheStore()</i>. By setting its value to <i>"true"</i> Metric Cache Storage is enabled, by setting it to <i>"false"</i>, it is disabled.</li>
+            </ul>
+            <span><b>Database-Storage of Metrics</b></span>
+            <ul>
+            <li>Field <i>databaseStore</i>, using the method <i>setDatabaseStore()</i>. By setting its value to <i>"true"</i> Metric Database Storage is enabled, by setting it to <i>"false"</i>, it is disabled.</li>
+            <li>Field <i>databaseStatement</i>, using the method <i>setDatabaseStatement()</i>. Storage of the database statement in order to be used for the execution of the sql query.</li>
+            <li>Field <i>updateDbQueries</i>, using the method <i>setUpdateDbQueries()</i>. Storage of sql queries in order to be executed when the annotation @DBStore is used. Each sql query is mapped to a specific query name, used as an annotation parameter.</li>
+            </ul>
+            <span><b>Monitoring of Metrics using RHQ</b></span>
+            <ul>
+            <li>Field <i>rhqMonitoring</i>, using the method <i>setRhqMonitoring()</i>. By setting its value to <i>"true"</i> RHQ Monitoring of metrics is enabled, by setting it to <i>"false"</i>, it is disabled.</li>
+            <li>Field <i>rhqServerUrl</i>, using the method <i>setRhqServerUrl()</i>. The url of RHQ server used for the specific group of metrics.</li>
+            <li>Field <i>rhqServerPort</i>, using the method <i>setRhqServerPort()</i>. The port of RHQ server used for the specific group of metrics.</li>
+            <li>Field <i>rhqServerUsername</i>, using the method <i>setRhqServerUsername()</i>. The username of RHQ server used for the specific group of metrics.</li>
+            <li>Field <i>rhqServerPassword</i>, using the method <i>setRhqServerPassword()</i>. The password of RHQ server used for the specific group of metrics.</li>
+            <li>Field <i>rhqScheduleIds</i>, using the method <i>setRhqScheduleIds()</i>. The equivalent schedule ids of the metrics to be monitored (Retrieved from the RHQ resources - http://RHQserverUrl:7080/rest/resource?ps=99999).</li>
+            </ul>
 	  </div><!--content-->   
 	
 	</div><!--close site_content-->

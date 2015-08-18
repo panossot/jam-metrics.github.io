@@ -10,6 +10,7 @@
   <link rel="stylesheet" type="text/css" href="css/style.css" />
   <script type="text/javascript" src="js/jquery.min.js"></script>
   <script type="text/javascript" src="js/image_slide.js"></script>
+  <script src="https://google-code-prettify.googlecode.com/svn/loader/run_prettify.js"></script>
 </head>
 
 <body>
@@ -42,34 +43,15 @@
 	
       <div id="content">
         <div class="content_item" align="center">
-          <h2>JBoss-Automated-Metrics Projects</h2>
-			<p>JBoss-Automated-Metrics are divided in three projects :</p>
-                        <ol type="1"><li>A Standalone Library used with any deployment on Wildfly Server.</li><li>An optional Subsystem of Wildfly.</li><li>A Library used with any Java SE application.</li></ol>
-			<p>&nbsp;</p>
-                        <div align="justify">Each project uses its own artifacts :<br/><br/>
-                        <span><b>Standalone Library used with any deployment on Wildfly Server</b></span><br/>
-                             <ul>
-				<li>org.jboss.metrics.AutomatedMetrics</li>
-                                <li>org.jboss.metrics.AutomatedMetricsApi</li>
-                                <li>org.jboss.metrics.JBossAutomatedMetricsProperties</li>
-			    </ul>
-                        <span><b>Optional Subsystem of Wildfly</b></span><br/>
-                             <ul>
-                                <li>org.jboss.metrics.AutomatedMetricsApi</li>
-                                <li>org.jboss.metrics.JBossAutomatedMetricsProperties</li>
-			    </ul>
-                        <span><b>Library used with any Java SE application</b></span><br/>
-                             <ul>
-                                <li>org.jboss.metrics.AutomatedMetricsJavaSeApi</li>
-                                <li>org.jboss.metrics.JBossAutomatedMetricsProperties</li>
-			    </ul>
-                        <br/><br/>
-                        <span><b>More information and examples about JBoss Automated Metric Projects, are available in the three sections below :</b></span><br/><br/>
-                        </div>
+          <h2>Wildfly Optional Subsystem</h2>
+                        <div align="justify">
+                        	<p>JBoss-Automated-Metrics are available as a Wildfly Optional Subsystem. This library can be used to facilitate the creation, record and monitoring of metrics for any deployment on Wildfly Server. This is done by annotating any class or method with the annotations @Metric and @DBStore. An example of usage can be found under the folder <a href="https://github.com/panossot/jboss-automated-metrics/tree/master/AutomatedMetricsSubSystemModules/AutomatedMetricsApiTest">AutomatedMetricsApiTest</a>.<br/><br/>Before you deploy the generated .war file on Wildfly server, the JBoss-Automated-Metrics Extension needs to be loaded as a Subsystem on the Wildfly Server.<br/><br/><b>How to install the JBoss-Automated-Metrics Wildfly extension :</b>
+                  <ol type="1"><li>Go to the directory <a href="https://github.com/panossot/jboss-automated-metrics/tree/master/WildflyAddExtensionSubsystem/AutomatedMetricsSubsystemExtension">WildflyAddExtensionSubsystem/AutomatedMetricsSubsystemExtension</a>.</li><li>Execute the maven command : mvn install -DJBossHome=The home directory of your Wildfly installation.</li><li>Restart Wildfly server.</li></ol><br/>After loading the JBoss-Automated-Metrics Subsystem on Wildfly, deploy the .war file on the server to see the metrics being printed. </p><br/>
+	                </div>
 	    </div><!--close content_item-->
       </div><!--close content-->   
-	
-            <div class="container">
+
+           <div class="container">
 	    <div class="ourwork">
 	      <h3>Standalone Wildfly Library</h3>
 		  <p>JBoss-Automated-Metrics are available as a Standalone Wildfly Library (Release 1.0.0.Final)...</p>

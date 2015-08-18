@@ -1,0 +1,242 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN" "http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en">
+
+<head>
+  <title>JBoss-Automated-Metrics</title>
+  <meta name="description" content="JBoss-Automated-Metrics" />
+  <meta name="keywords" content="jboss automated metrics, jboss, wildfly, metrics, databases, rhq, deployments, monitoring, storage" />
+  <meta http-equiv="content-type" content="text/html; charset=utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=9" />
+  <link rel="stylesheet" type="text/css" href="css/style.css" />
+  <script type="text/javascript" src="js/jquery.min.js"></script>
+  <script type="text/javascript" src="js/image_slide.js"></script>
+  <script src="https://google-code-prettify.googlecode.com/svn/loader/run_prettify.js"></script>
+</head>
+
+<body>
+  <div id="main">
+    <div id="header">
+	  <div id="banner">
+	    <div id="welcome">
+	      <h1>JBoss-Automated-Metrics</h1>
+	    </div><!--close welcome-->
+	    <div id="menubar">
+          <ul id="menu">
+            <li><a href="index.html">Home</a></li>
+            <li class="current"><a href="projects.html">Projects</a></li>
+            <li><a href="features.html">Features</a></li>
+            <li><a href="ourwork.html">Repo</a></li>
+            <li><a href="contact.html">Contact Us</a></li>
+          </ul>
+        </div><!--close menubar-->	  
+	  </div><!--close banner-->	
+    </div><!--close header-->	
+	
+	<div id="site_content">
+	
+      <div class="slideshow">  
+		<ul class="slideshow">
+          <li class="show"><img width="900" height="350" src="images/lion_1.jpg" alt="&quot;Looking for deployable metrics? Try JBoss-Automated-Metrics.&quot;" /></li>
+          <li><img width="900" height="350" src="images/metrics.jpg" alt="&quot;Looking for deployable metrics? Try JBoss-Automated-Metrics.&quot;" /></li>
+        </ul> 
+      </div><!--close slideshow-->	 	
+	
+      <div id="content">
+        <div class="content_item" align="center">
+          <h2>Java SE Library</h2>
+                        <div align="justify">
+                        	<p>JBoss-Automated-Metrics are available as a Java SE Standalone Library. This library can be used to facilitate the creation, record and monitoring of metrics for any Java SE application. For this purpose, org.jboss.metrics.javase.automatedmetricsjavaseapi. JbossAutomatedJavaSeMetrics and org.jboss.metrics.javase.automatedmetricsjavaseapi.JbossAutomatedJavaSeMetricsDbStore are used. An example of usage can be found under the folder <a href="https://github.com/panossot/jboss-automated-metrics/tree/master/JavaSeAutomatedMetrics/AutomatedMetricsJavaSeApiTest2">AutomatedMetricsJavaSeApiTest2</a>.<br/><br/>For example, in class MetricsApiSeTestClass below,  we use org.jboss.metrics.javase.automatedmetricsjavaseapi. JbossAutomatedJavaSeMetrics for Cache Storage and Rhq Monitoring and org.jboss.metrics.javase.automatedmetricsjavaseapi. JbossAutomatedJavaSeMetricsDbStore for Database Storage of metrics in Java SE:</p><br/>
+	<pre class="prettyprint">
+    public class MetricsApiSeTestClass {  
+      
+        private int count = 0;  
+      
+        private int count2 = 0;  
+      
+        JbossAutomatedJavaSeMetrics jbMetrics;  // JBoss-Automated-Metrics Api class used for Cache Storage and Rhq Monitoring  
+        JbossAutomatedJavaSeMetricsDbStore jbMetricsDbStore;  // JBoss-Automated-Metrics Api class used for Database Storage  
+      
+        public MetricsApiSeTestClass() {  
+            jbMetrics = new JbossAutomatedJavaSeMetrics();  
+            jbMetricsDbStore = new JbossAutomatedJavaSeMetricsDbStore();  
+        }  
+      
+        public int countMethod() throws Exception {  
+            count++;  
+            count2 += 2;  
+            jbMetrics.metric(this,count,"count","myTestGroup");  // Used for Cache Storage and Rhq Monitoring of the metric "count"  
+                                                        // params : instance, metric value, metric name, group  
+            jbMetricsDbStore.metricsDbStore(this,new Object[]{count}, "myGroup", "statement_1", new String[]{"StoreDBMetric","count"});   
+                                                        // Used for Database Storage of the metric "count"  
+                                                        // params : instance, array of values used to replace sql query semantics [i], 
+                                                        // group, statement, sql query to be executed and strings to replace semantics {i}.  
+            jbMetrics.metric(this,count2,"count2","myGroup");   // Used for Cache Storage and Rhq Monitoring of the metric "count2"  
+            jbMetricsDbStore.metricsDbStore(this, new Object[]{count2}, "myGroup", "statement_1", new String[]{"StoreDBMetric","count2"});  
+                                                        // Used for Database Storage of the metric "count2"  
+      
+            return count;  
+        }  
+      
+    }</pre><br/>
+     <p>and we call the method countMethod two sequential times :</p>
+<pre class="prettyprint">
+    public class AutomatedMetricsJavaSeApiTest {  
+      
+        private static String groupName = "myGroup";  
+      
+        /** 
+         * @param args the command line arguments 
+         */  
+        public static void main(String[] args) {  
+            try {  
+                initializeMetricProperties();  
+                MetricsApiSeTestClass mTC = new MetricsApiSeTestClass();  
+                mTC.countMethod();  
+                mTC.countMethod();  
+                System.out.println(MetricsCacheApi.printMetricsCache(groupName));  
+            } catch (Exception e) {  
+                e.printStackTrace();  
+            }  
+        }  
+      
+        private static void initializeMetricProperties() {  
+            HashMap<String,String> rhqScheduleIds = new HashMap<String,String>();  
+            rhqScheduleIds.put("count", "11401");  
+            rhqScheduleIds.put("count2", "11402");  
+            MetricProperties metricProperties = new MetricProperties();  
+            metricProperties.setRhqMonitoring("true");  // Enable Rhq monitoring  
+            metricProperties.setCacheStore("true");  // Enable Cache Storage  
+            metricProperties.setRhqServerUrl("lz-panos-jon33.bc.jonqe.lab.eng.bos.redhat.com");  
+            metricProperties.setRhqScheduleIds(rhqScheduleIds);  
+            metricProperties.setDatabaseStore("true");  // Enable Database Storage  
+            try {  
+                Connection  connection = DriverManager.getConnection("jdbc:mariadb://localhost:3306", "root", "panos");  
+                Statement stmt = connection.createStatement();  
+                createDbTable(stmt);  
+                HashMap<String,Statement> dbStmt = new HashMap<String,Statement>();  
+                dbStmt.put("statement_1", stmt);  
+                metricProperties.setDatabaseStatement(dbStmt);  
+                HashMap<String,String> query1 = new HashMap<String,String>();  
+                query1.put("StoreDBMetric", "INSERT INTO MyMETRICS.metricValues(METRIC_NAME,METRIC_VALUE,METRIC_INSTANCE,RECORD_TIME) 
+                                             VALUES('{1}', [1], '{instance}', '{time}');");  
+                                 // sql query semantics :  {1} = Name of metric 1, [1] = Value of metric 1, 
+                                 // {instance} = the instance of the class that contains the metric, {time} = the time of storage  
+                metricProperties.setUpdateDbQueries(query1);  
+            } catch(Exception e) {  
+                e.printStackTrace();  
+            }  
+            MetricsPropertiesApi.storeProperties(groupName, metricProperties);  
+        }  
+      
+        private static void createDbTable(Statement stmt) {  
+            try {  
+                String query = "SELECT COUNT(*) FROM information_schema.tables WHERE table_schema = 'MyMETRICS' " + 
+                               "AND table_name = 'metricValues'";  
+                ResultSet rs = stmt.executeQuery(query);         
+                rs.next();  
+                boolean exists = rs.getInt("COUNT(*)") > 0;  
+      
+                if (!exists) {  
+                    String sql = "CREATE DATABASE MyMETRICS";  
+                    stmt.executeUpdate(sql);  
+                    System.out.println("Database created successfully...");  
+      
+                    sql = "CREATE TABLE MyMETRICS.metricValues(ID int NOT NULL AUTO_INCREMENT, METRIC_NAME varchar(255) NOT NULL," +  
+                          " METRIC_VALUE varchar(255) NOT NULL, METRIC_INSTANCE varchar(255), RECORD_TIME DATETIME, PRIMARY KEY(ID));";  
+           
+                    stmt.executeUpdate(sql);  
+                }  
+            } catch(Exception e){  
+                e.printStackTrace();  
+            }  
+        }  
+    }</pre><br/>
+     <p>then the field-metrics will be automatically stored in our metrics cache :</p>
+     <pre class="prettyprint">
+	Metric Field Name : count (of instance org.jboss.metrics.automatedmetricsjavaseapitest.MetricsApiSeTestClass@47f92qcf)
+        Value : 1
+        Value : 2
+
+        Metric Field Name : count2 (of instance org.jboss.metrics.automatedmetricsjavaseapitest.MetricsApiSeTestClass@47f92qcf)
+        Value : 2
+        Value : 4
+     </pre><br/>
+
+     <p>and in the database table MyMETRICS.metricValues : </p>
+     <pre class="prettyprint">
+        ID     METRIC_NAME     METRIC_VALUE                  METRIC_INSTANCE                               RECORD_TIME
+
+        1        count             1          org.jboss.metrics...MetricsApiSeTestClass@47f92qcf       2015-07-30 16:08:15
+        2        count2            2          org.jboss.metrics...MetricsApiSeTestClass@47f92qcf       2015-07-30 16:08:15
+        3        count             2          org.jboss.metrics...MetricsApiSeTestClass@47f92qcf       2015-07-30 16:08:15
+        4        count2            4          org.jboss.metrics...MetricsApiSeTestClass@47f92qcf       2015-07-30 16:08:15
+     </pre><br/>
+
+     <p>The metrics are also monitored using RHQ.</p>
+                        </div>
+	    </div><!--close content_item-->
+      </div><!--close content-->   
+
+            <div class="container">
+	    <div class="ourwork">
+	      <h3>Standalone Wildfly Library</h3>
+		  <p>JBoss-Automated-Metrics are available as a Standalone Wildfly Library (Release 1.0.0.Final) ...</p>
+		  <div class="more">
+		    <a href="wildflyStandalone.html">Read more</a>
+		  </div><!--close more-->      
+	    </div><!--close ourwork-->
+	    <div class="testimonials">
+	      <h3>Wildfly Optional Subsystem</h3>
+		  <p>JBoss-Automated-Metrics are available as a Wildfly Optional Subsystem ...</p>	  
+		  <div class="more">
+		    <a href="wildflySubsystem.html">Read more</a>
+		  </div><!--close more-->        
+	    </div><!--close testimonials-->	  
+	    <div class="projects">
+	      <h3>Java SE Library</h3>
+		  <p>JBoss-Automated-Metrics are available as a Java SE Standalone Library ...</p>	  
+		  <div class="more">
+		    <a href="javaSEversion.html">Read more</a>
+		  </div><!--close more-->        
+	    </div><!--close projects-->
+	  </div><!--close container-->
+
+	</div><!--close site_content--> 
+
+	<div id="content_cream">
+	  <div class="content_cream_container_box">
+		<h4>Projects</h4>
+	    <p> JBoss-Automated-Metrics are divided in three projects ...</p>
+		<div class="readmore">
+		  <a href="projects.html">Read more</a>
+		</div><!--close readmore-->
+	  </div><!--close content_cream_container_box-->
+      <div class="content_cream_container_box">
+       <h4>Features</h4>
+	    <p> JBoss-Automated-Metrics have three main features ...</p>
+	    <div class="readmore">
+		  <a href="features.html">Read more</a>
+		</div><!--close readmore-->
+	  </div><!--close content_cream_container_box-->
+      <div class="content_cream_container_boxl">
+		<h4>Contact Us</h4>
+	    <p> If you would like any support using JBoss-Automated-Metrics, ...</p>
+	    <div class="readmore">
+		  <a href="contact.html">Read more</a>
+		</div><!--close readmore-->	  
+	  </div><!--close content_cream_container_box1-->      
+	  <br style="clear:both"/>
+    </div><!--close content_cream-->   
+ 
+  </div><!--close main-->
+  
+  <div id="footer_container">
+    <div id="footer">
+	  <a href="http://www.redhat.com/">
+            <img alt="redhatlogo-white" src="images/redhatlogo-white.png" width="130">
+          </a><font color="FF0000">website template by</font> <a href="http://www.araynordesign.co.uk" style="text-decoration:none;"><font color="FF0000">ARaynorDesign</font></a>
+    </div><!--close footer-->  
+  </div><!--close footer_container--> 	
+  
+</body>
+</html>

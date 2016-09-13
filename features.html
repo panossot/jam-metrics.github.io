@@ -99,7 +99,7 @@
 	    <li>Change the rhq-plugin.xml located in MetricsRhqPlugin folder with the metrics that you want to monitor</li>
 	    <li>Build the plugin and load it on RHQ</li>
 	    <li>At this point, you should be able to see your MetricsServer under the Resources of RHQ (http://RHQserverUrl:7080/rest/resource?ps=99999)</li>
-	    <li>Check the schedule ids of the metrics you want to monitor and configure jboss-automated-metrics using AutomatedMeticsProperties api (Please, check initializeMetricProperties()  of the example above).</li>
+	    <li>Check the schedule ids of the metrics you want to monitor and configure jam-metrics using AutomatedMeticsProperties api (Please, check initializeMetricProperties()  of the example above).</li>
 	    <li>Enable the RHQ Monitoring Operation using AutomatedMeticsProperties api  (Please, check the method initializeMetricProperties()  of the example above).</li>
 	    <li>At this point, you should be able to use the operations of the JAM-Metrics that you have activated.</li>
             </ol>

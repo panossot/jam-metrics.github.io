@@ -55,7 +55,7 @@
         <div class="content_item" align="center">
           <h2>Standalone Wildfly Library</h2>
                         <div align="justify">
-                        	<p>JAM-Metrics are available as a Standalone Wildfly Library (Release 1.0.0.Final). This library can be used to facilitate the creation, record and monitoring of metrics for any deployment on Wildfly Server. This is done by annotating any class or method with the annotations @Metric and @DBStore. An example of usage can be found under the folder <a href="https://github.com/panossot/jboss-automated-metrics/tree/master/AutomatedMetricsStandalone/AutomatedMetricsApiTest">AutomatedMetricsApiTest</a>. Deploy the generated .war file on the Wildfly server to see the metrics being printed.<br/><br/>For example, if we annotate the countMethod method below, with the annotations @Metric(fieldName = {"count","count2"}, groupName="myTestGroup") and @DBStore(groupName = "myGroup", queryUpdateDB = {"StoreDBMetric","count"}, statementName = "statement_1") :</p><br/>
+                        	<p>JAM-Metrics are available as a Standalone Wildfly Library (Release 1.0.0.Final). This library can be used to facilitate the creation, record and monitoring of metrics for any deployment on Wildfly Server. This is done by annotating any class or method with the annotations @Metric and @DBStore. An example of usage can be found under the folder <a href="https://github.com/panossot/jam-metrics/tree/master/AutomatedMetricsStandalone/AutomatedMetricsApiTest">AutomatedMetricsApiTest</a>. Deploy the generated .war file on the Wildfly server to see the metrics being printed.<br/><br/>For example, if we annotate the countMethod method below, with the annotations @Metric(fieldName = {"count","count2"}, groupName="myTestGroup") and @DBStore(groupName = "myGroup", queryUpdateDB = {"StoreDBMetric","count"}, statementName = "statement_1") :</p><br/>
 	<pre class="prettyprint">
     @Stateful  
     @LocalBean  
@@ -153,7 +153,7 @@
         2        count             2          org.jam.metrics.MetricsApiSessionBean@43f98edf       2015-07-30 16:01:35
      </pre><br/>
 
-     <p>An example of usage about database storage can be found under the folder <a href="https://github.com/panossot/jboss-automated-metrics/tree/master/AutomatedMetricsStandalone/AutomatedMetricsApiTest6">AutomatedMetricsApiTest6</a>.</p>
+     <p>An example of usage about database storage can be found under the folder <a href="https://github.com/panossot/jam-metrics/tree/master/AutomatedMetricsStandalone/AutomatedMetricsApiTest6">AutomatedMetricsApiTest6</a>.</p>
                         </div>
 	    </div><!--close content_item-->
       </div><!--close content-->   

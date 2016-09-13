@@ -2,8 +2,8 @@
 <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en">
 
 <head>
-  <title>JBoss-Automated-Metrics</title>
-  <meta name="description" content="JBoss-Automated-Metrics" />
+  <title>JAM-Metrics</title>
+  <meta name="description" content="JAM-Metrics" />
   <meta name="keywords" content="jboss automated metrics, jboss, wildfly, metrics, databases, rhq, deployments, monitoring, storage" />
   <meta http-equiv="content-type" content="text/html; charset=utf-8" />
   <meta http-equiv="X-UA-Compatible" content="IE=9" />
@@ -28,7 +28,7 @@
     <div id="header">
 	  <div id="banner">
 	    <div id="welcome">
-	      <h1>JBoss-Automated-Metrics</h1>
+	      <h1>JAM-Metrics</h1>
 	    </div><!--close welcome-->
 	    <div id="menubar">
           <ul id="menu">
@@ -46,18 +46,18 @@
 	
       <div class="slideshow">  
 		<ul class="slideshow">
-          <li class="show"><img width="900" height="350" src="images/lion_1.jpg" alt="&quot;Looking for deployable metrics? Try JBoss-Automated-Metrics.&quot;" /></li>
-          <li><img width="900" height="350" src="images/lion_1.jpg" alt="&quot;Looking for deployable metrics? Try JBoss-Automated-Metrics.&quot;" /></li>
+          <li class="show"><img width="900" height="350" src="images/lion_1.jpg" alt="&quot;Looking for deployable metrics? Try JAM-Metrics.&quot;" /></li>
+          <li><img width="900" height="350" src="images/lion_1.jpg" alt="&quot;Looking for deployable metrics? Try JAM-Metrics.&quot;" /></li>
         </ul> 
       </div><!--close slideshow-->	
 	   
       <div id="content">
         <div class="content_item" align="center">
-          <h2>JBoss-Automated-Metrics Features</h2>
-			<p>JBoss-Automated-Metrics have three main features :</p>
+          <h2>JAM-Metrics Features</h2>
+			<p>JAM-Metrics have three main features :</p>
                         <ol type="1"><li>Cache-Storage of Metrics.</li><li>Database-Storage of Metrics.</li><li>Monitoring of Metrics using RHQ.</li></ol></div><!--close content_item-->
 			<p>&nbsp;</p>
-                        <div align="justify">JBoss-Automated-Metrics facilitate for storage of metrics in cache, storage in some database and monitoring using RHQ monitoring tool. The configuration is done in the deployment by enabling or disabling each of the above features. Here is an example, which demonstrates how you can configure JBoss-Automated-Metrics in order to enable their features : </div><br/>
+                        <div align="justify">JAM-Metrics facilitate for storage of metrics in cache, storage in some database and monitoring using RHQ monitoring tool. The configuration is done in the deployment by enabling or disabling each of the above features. Here is an example, which demonstrates how you can configure JAM-Metrics in order to enable their features : </div><br/>
 	<pre class="prettyprint">
     private String groupName = "myGroup";
 
@@ -93,18 +93,18 @@
         MetricsPropertiesApi.storeProperties(groupName, metricProperties);  // Store the metric properties for a specific group. 
     }</pre><br/>
 
-         <div align="justify">Now, by using the annotations <b>@Metric</b> and <b>@DBStore</b> on a Class or a Method will trigger the JBoss-Automated-Metric features that are enabled in the configuration for the specific group. <b>For examples of usage, please refer to the section <i>Projects</i></b>.<br/><br/>Especially, for the <b>configuration of Rhq monitoring</b> some additional steps are required : </div><br/>
+         <div align="justify">Now, by using the annotations <b>@Metric</b> and <b>@DBStore</b> on a Class or a Method will trigger the JAM-Metric features that are enabled in the configuration for the specific group. <b>For examples of usage, please refer to the section <i>Projects</i></b>.<br/><br/>Especially, for the <b>configuration of Rhq monitoring</b> some additional steps are required : </div><br/>
             <ol type="1">
             <li>Firstly, download and configure the RHQ Server</li>
 	    <li>Change the rhq-plugin.xml located in MetricsRhqPlugin folder with the metrics that you want to monitor</li>
 	    <li>Build the plugin and load it on RHQ</li>
 	    <li>At this point, you should be able to see your MetricsServer under the Resources of RHQ (http://RHQserverUrl:7080/rest/resource?ps=99999)</li>
-	    <li>Check the schedule ids of the metrics you want to monitor and configure jboss-automated-metrics using JBossAutomatedMeticsProperties api (Please, check initializeMetricProperties()  of the example above).</li>
-	    <li>Enable the RHQ Monitoring Operation using JBossAutomatedMeticsProperties api  (Please, check the method initializeMetricProperties()  of the example above).</li>
-	    <li>At this point, you should be able to use the operations of the JBoss-Automated-Metrics that you have activated.</li>
+	    <li>Check the schedule ids of the metrics you want to monitor and configure jboss-automated-metrics using AutomatedMeticsProperties api (Please, check initializeMetricProperties()  of the example above).</li>
+	    <li>Enable the RHQ Monitoring Operation using AutomatedMeticsProperties api  (Please, check the method initializeMetricProperties()  of the example above).</li>
+	    <li>At this point, you should be able to use the operations of the JAM-Metrics that you have activated.</li>
             </ol>
 	    <br/><br/>
-            <div align="justify">The <b>configuration</b> of JBoss-Automated-Metrics properties is done using the artifact <i>org.jboss.metrics.JBossAutomatedMetricsProperties</i>. The user can modify the following properties of each feature : </div><br/>
+            <div align="justify">The <b>configuration</b> of JAM-Metrics properties is done using the artifact <i>org.jam.metrics.AutomatedMetricsProperties</i>. The user can modify the following properties of each feature : </div><br/>
             <span><b>Cache-Storage of Metrics</b></span>
             <ul>
                 <li>Field <i>cacheStore</i>, using the method <i>setCacheStore()</i>. By setting its value to <i>"true"</i> Metric Cache Storage is enabled, by setting it to <i>"false"</i>, it is disabled.</li>
@@ -131,21 +131,21 @@
 	<div id="content_cream">
 	  <div class="content_cream_container_box">
 		<h4>Projects</h4>
-	    <p> JBoss-Automated-Metrics are divided in three projects ...</p>
+	    <p> JAM-Metrics are divided in three projects ...</p>
 		<div class="readmore">
 		  <a href="projects.html">Read more</a>
 		</div><!--close readmore-->
 	  </div><!--close content_cream_container_box-->
       <div class="content_cream_container_box">
        <h4>Features</h4>
-	    <p> JBoss-Automated-Metrics have three main features ...</p>
+	    <p> JAM-Metrics have three main features ...</p>
 	    <div class="readmore">
 		  <a href="features.html">Read more</a>
 		</div><!--close readmore-->
 	  </div><!--close content_cream_container_box-->
       <div class="content_cream_container_boxl">
 		<h4>Contact Us</h4>
-	    <p> If you would like any support using JBoss-Automated-Metrics, ...</p>
+	    <p> If you would like any support using JAM-Metrics, ...</p>
 	    <div class="readmore">
 		  <a href="contact.html">Read more</a>
 		</div><!--close readmore-->	  

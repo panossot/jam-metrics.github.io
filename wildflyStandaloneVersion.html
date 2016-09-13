@@ -2,8 +2,8 @@
 <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en">
 
 <head>
-  <title>JBoss-Automated-Metrics</title>
-  <meta name="description" content="JBoss-Automated-Metrics" />
+  <title>JAM-Metrics</title>
+  <meta name="description" content="JAM-Metrics" />
   <meta name="keywords" content="jboss automated metrics, jboss, wildfly, metrics, databases, rhq, deployments, monitoring, storage" />
   <meta http-equiv="content-type" content="text/html; charset=utf-8" />
   <meta http-equiv="X-UA-Compatible" content="IE=9" />
@@ -28,7 +28,7 @@
     <div id="header">
 	  <div id="banner">
 	    <div id="welcome">
-	      <h1>JBoss-Automated-Metrics</h1>
+	      <h1>JAM-Metrics</h1>
 	    </div><!--close welcome-->
 	    <div id="menubar">
           <ul id="menu">
@@ -46,8 +46,8 @@
 	
       <div class="slideshow">  
 		<ul class="slideshow">
-          <li class="show"><img width="900" height="350" src="images/lion_1.jpg" alt="&quot;Looking for deployable metrics? Try JBoss-Automated-Metrics.&quot;" /></li>
-          <li><img width="900" height="350" src="images/lion_1.jpg" alt="&quot;Looking for deployable metrics? Try JBoss-Automated-Metrics.&quot;" /></li>
+          <li class="show"><img width="900" height="350" src="images/lion_1.jpg" alt="&quot;Looking for deployable metrics? Try JAM-Metrics.&quot;" /></li>
+          <li><img width="900" height="350" src="images/lion_1.jpg" alt="&quot;Looking for deployable metrics? Try JAM-Metrics.&quot;" /></li>
         </ul> 
       </div><!--close slideshow-->	 	
 	
@@ -55,7 +55,7 @@
         <div class="content_item" align="center">
           <h2>Standalone Wildfly Library</h2>
                         <div align="justify">
-                        	<p>JBoss-Automated-Metrics are available as a Standalone Wildfly Library (Release 1.0.0.Final). This library can be used to facilitate the creation, record and monitoring of metrics for any deployment on Wildfly Server. This is done by annotating any class or method with the annotations @Metric and @DBStore. An example of usage can be found under the folder <a href="https://github.com/panossot/jboss-automated-metrics/tree/master/AutomatedMetricsStandalone/AutomatedMetricsApiTest">AutomatedMetricsApiTest</a>. Deploy the generated .war file on the Wildfly server to see the metrics being printed.<br/><br/>For example, if we annotate the countMethod method below, with the annotations @Metric(fieldName = {"count","count2"}, groupName="myTestGroup") and @DBStore(groupName = "myGroup", queryUpdateDB = {"StoreDBMetric","count"}, statementName = "statement_1") :</p><br/>
+                        	<p>JAM-Metrics are available as a Standalone Wildfly Library (Release 1.0.0.Final). This library can be used to facilitate the creation, record and monitoring of metrics for any deployment on Wildfly Server. This is done by annotating any class or method with the annotations @Metric and @DBStore. An example of usage can be found under the folder <a href="https://github.com/panossot/jboss-automated-metrics/tree/master/AutomatedMetricsStandalone/AutomatedMetricsApiTest">AutomatedMetricsApiTest</a>. Deploy the generated .war file on the Wildfly server to see the metrics being printed.<br/><br/>For example, if we annotate the countMethod method below, with the annotations @Metric(fieldName = {"count","count2"}, groupName="myTestGroup") and @DBStore(groupName = "myGroup", queryUpdateDB = {"StoreDBMetric","count"}, statementName = "statement_1") :</p><br/>
 	<pre class="prettyprint">
     @Stateful  
     @LocalBean  
@@ -71,7 +71,7 @@
         @Metric(fieldName = {"count","count2"}, grouptName = "myGroup")  // The annotation parameter groupName is used for grouping 
                                                                          // of metrics under the same metric-properties configuration.  
         @DBStore(groupName = "myGroup", queryUpdateDB = {"StoreDBMetric","count"}, statementName = "statement_1") // Annotation that 
-                                                                     // enables the storage of JBoss-Automated-Metrics in the database
+                                                                     // enables the storage of JAM-Metrics in the database
         public int countMethod() {  
             count++;  
             count2 += 2;  
@@ -92,7 +92,7 @@
         protected void processRequest(HttpServletRequest request, HttpServletResponse response)  
                 throws ServletException, IOException {  
             response.setContentType("text/html;charset=UTF-8");  
-            initializeMetricProperties();  // Using JBoss MetricsPropertiesApi to configure JBoss-Automated-Metrics.  All the 
+            initializeMetricProperties();  // Using  MetricsPropertiesApi to configure JAM-Metrics.  All the 
               // configuration needed is done inside the deployment (no xml configurations needed, no System Properties to be set)  
       
             try (PrintWriter out = response.getWriter()) {  
@@ -131,11 +131,11 @@
     } </pre><br/>
      <p>then the field-metrics will be automatically stored in our metrics cache :</p>
      <pre class="prettyprint">
-	Metric Field Name : count (of instance org.jboss.metrics.MetricsApiSessionBean@43f98edf)
+	Metric Field Name : count (of instance org.jam.metrics.MetricsApiSessionBean@43f98edf)
         Value : 1
         Value : 2
 
-        Metric Field Name : count2 (of instance org.jboss.metrics.MetricsApiSessionBean@43f98edf)
+        Metric Field Name : count2 (of instance org.jam.metrics.MetricsApiSessionBean@43f98edf)
         Value : 2
         Value : 4
      </pre><br/>
@@ -149,8 +149,8 @@
      <pre class="prettyprint">
         ID     METRIC_NAME     METRIC_VALUE                 METRIC_INSTANCE                              RECORD_TIME
 
-        1        count             1          org.jboss.metrics.MetricsApiSessionBean@43f98edf       2015-07-30 16:01:35
-        2        count             2          org.jboss.metrics.MetricsApiSessionBean@43f98edf       2015-07-30 16:01:35
+        1        count             1          org.jam.metrics.MetricsApiSessionBean@43f98edf       2015-07-30 16:01:35
+        2        count             2          org.jam.metrics.MetricsApiSessionBean@43f98edf       2015-07-30 16:01:35
      </pre><br/>
 
      <p>An example of usage about database storage can be found under the folder <a href="https://github.com/panossot/jboss-automated-metrics/tree/master/AutomatedMetricsStandalone/AutomatedMetricsApiTest6">AutomatedMetricsApiTest6</a>.</p>
@@ -161,21 +161,21 @@
            <div class="container">
 	    <div class="ourwork">
 	      <h3>Standalone Wildfly Library</h3>
-		  <p>JBoss-Automated-Metrics are available as a Standalone Wildfly Library (Release 1.0.0.Final) ...</p>
+		  <p>JAM-Metrics are available as a Standalone Wildfly Library (Release 1.0.0.Final) ...</p>
 		  <div class="more">
 		    <a href="wildflyStandaloneVersion.html">Read more</a>
 		  </div><!--close more-->      
 	    </div><!--close ourwork-->
 	    <div class="testimonials">
 	      <h3>Wildfly Optional Subsystem</h3>
-		  <p>JBoss-Automated-Metrics are available as a Wildfly Optional Subsystem ...</p>	  
+		  <p>JAM-Metrics are available as a Wildfly Optional Subsystem ...</p>	  
 		  <div class="more">
 		    <a href="wildflySubsystemVersion.html">Read more</a>
 		  </div><!--close more-->        
 	    </div><!--close testimonials-->	  
 	    <div class="projects">
 	      <h3>Java SE Library</h3>
-		  <p>JBoss-Automated-Metrics are available as a Java SE Standalone Library ...</p>	  
+		  <p>JAM-Metrics are available as a Java SE Standalone Library ...</p>	  
 		  <div class="more">
 		    <a href="javaSEversion.html">Read more</a>
 		  </div><!--close more-->        
@@ -187,21 +187,21 @@
 	<div id="content_cream">
 	  <div class="content_cream_container_box">
 		<h4>Projects</h4>
-	    <p> JBoss-Automated-Metrics are divided in three projects ...</p>
+	    <p> JAM-Metrics are divided in three projects ...</p>
 		<div class="readmore">
 		  <a href="projects.html">Read more</a>
 		</div><!--close readmore-->
 	  </div><!--close content_cream_container_box-->
       <div class="content_cream_container_box">
        <h4>Features</h4>
-	    <p> JBoss-Automated-Metrics have three main features ...</p>
+	    <p> JAM-Metrics have three main features ...</p>
 	    <div class="readmore">
 		  <a href="features.html">Read more</a>
 		</div><!--close readmore-->
 	  </div><!--close content_cream_container_box-->
       <div class="content_cream_container_boxl">
 		<h4>Contact Us</h4>
-	    <p> If you would like any support using JBoss-Automated-Metrics, ...</p>
+	    <p> If you would like any support using JAM-Metrics, ...</p>
 	    <div class="readmore">
 		  <a href="contact.html">Read more</a>
 		</div><!--close readmore-->	  

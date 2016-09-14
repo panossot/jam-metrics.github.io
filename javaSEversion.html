@@ -55,7 +55,7 @@
         <div class="content_item" align="center">
           <h2>Java SE Library</h2>
                         <div align="justify">
-                        	<p>JAM-Metrics are available as a Java SE Standalone Library. This library can be used to facilitate the creation, record and monitoring of metrics for any Java SE application. For this purpose, org.jam.metrics.javase.automatedmetricsjavaseapi. AutomatedJavaSeMetrics and org.jam.metrics.javase.automatedmetricsjavaseapi.AutomatedJavaSeMetricsDbStore are used. An example of usage can be found under the folder <a href="https://github.com/panossot/jam-metrics/tree/master/JavaSeAutomatedMetrics/AutomatedMetricsJavaSeApiTest2">AutomatedMetricsJavaSeApiTest2</a>.<br/><br/>For example, in class MetricsApiSeTestClass below,  we use org.jam.metrics.javase.automatedmetricsjavaseapi. AutomatedJavaSeMetrics for Cache Storage and Rhq Monitoring and org.jam.metrics.javase.automatedmetricsjavaseapi. AutomatedJavaSeMetricsDbStore for Database Storage of metrics in Java SE:</p><br/>
+                        	<p>JAM-Metrics are available as a Java SE Standalone Library. This library can be used to facilitate the creation, record and monitoring of metrics for any Java SE application. For this purpose, org.jam.metrics.javase.automatedmetricsjavaseapi. ApplicationJavaSeMetrics and org.jam.metrics.javase.automatedmetricsjavaseapi.ApplicationJavaSeMetricsDbStore are used. An example of usage can be found under the folder <a href="https://github.com/panossot/jam-metrics/tree/master/JavaSeApplicationMetrics/ApplicationMetricsJavaSeApiTest2">ApplicationMetricsJavaSeApiTest2</a>.<br/><br/>For example, in class MetricsApiSeTestClass below,  we use org.jam.metrics.javase.automatedmetricsjavaseapi. ApplicationJavaSeMetrics for Cache Storage and Rhq Monitoring and org.jam.metrics.javase.automatedmetricsjavaseapi. ApplicationJavaSeMetricsDbStore for Database Storage of metrics in Java SE:</p><br/>
 	<pre class="prettyprint">
     public class MetricsApiSeTestClass {  
       
@@ -63,12 +63,12 @@
       
         private int count2 = 0;  
       
-        AutomatedJavaSeMetrics jbMetrics;  // JAM-Metrics Api class used for Cache Storage and Rhq Monitoring  
-        AutomatedJavaSeMetricsDbStore jbMetricsDbStore;  // JAM-Metrics Api class used for Database Storage  
+        ApplicationJavaSeMetrics jbMetrics;  // JAM-Metrics Api class used for Cache Storage and Rhq Monitoring  
+        ApplicationJavaSeMetricsDbStore jbMetricsDbStore;  // JAM-Metrics Api class used for Database Storage  
       
         public MetricsApiSeTestClass() {  
-            jbMetrics = new AutomatedJavaSeMetrics();  
-            jbMetricsDbStore = new AutomatedJavaSeMetricsDbStore();  
+            jbMetrics = new ApplicationJavaSeMetrics();  
+            jbMetricsDbStore = new ApplicationJavaSeMetricsDbStore();  
         }  
       
         public int countMethod() throws Exception {  
@@ -90,7 +90,7 @@
     }</pre><br/>
      <p>and we call the method countMethod two sequential times :</p>
 <pre class="prettyprint">
-    public class AutomatedMetricsJavaSeApiTest {  
+    public class ApplicationMetricsJavaSeApiTest {  
       
         private static String groupName = "myGroup";  
       
